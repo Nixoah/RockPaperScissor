@@ -1,3 +1,6 @@
+const ROCK=0;
+const PAPER=1;
+const SCISSOR=2;
 function playRound(User,Computer){
     if (User===Computer){
         return "Tie";
@@ -11,28 +14,19 @@ function playRound(User,Computer){
 }
 
 function getComputerChoice(){
-    let Rand=Math.floor(Math.random()*3);
-    switch(Rand) {
-        case 0:
-            return 0;
-        case 1:
-            return 1;
-        case 2:
-            return 2;
-        default:
-            return null;
-    }
+    return Math.floor(Math.random()*3);
 }
 
 function convertUserInput(input){
-    if (input==="rock"){
-        return 0;
-    }
-    else if (input === "paper"){
-        return 1;
-    }
-    else if (input === "scissor"){
-        return 2;
+    switch (input.toLowerCase()) {
+        case 'rock':
+            return ROCK;
+        case 'paper':
+            return PAPER;
+        case 'scissor':
+            return SCISSOR;
+        default:
+            throw new Error('Invalid input');
     }
 }
 
@@ -43,10 +37,11 @@ function playGame(){
     for (let i = 0; i<5; i++){
         let User=convertUserInput(prompt("Please choose rock, paper or scissor",""));
         let Computer=getComputerChoice();
-        if (playRound(User,Computer)=="Computer"){
+        let result=playRound(User,Computer);
+        if (result=="Computer"){
             CompScore++;
         }
-        else if (playRound(User,Computer)=="User"){
+        else if (result=="User"){
             UserScore++;
         }
         else {
